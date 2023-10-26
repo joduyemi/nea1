@@ -2,6 +2,7 @@ import turtle
 import tkinter
 import sbfl
 import time
+from PIL import Image
 
 window = tkinter.Tk()
 canvas = tkinter.Canvas(master = window, width = 800, height = 800)
@@ -113,12 +114,15 @@ if __name__ == '__main__':
     t.hideturtle()
     t.speed(0)
 
-    n = 50
+    n = 10
     sideLen = 20
 
     rm = rectMaze(n, sideLen)
     # rm.create_square()
     # rm.create_grid()
     rm.create_maze()
+    canvas.postscript('x.eps', width=1000, height=1000)
+    img = Image.open('x.eps')
+    img.save('x.jph')
 
     t.done()
