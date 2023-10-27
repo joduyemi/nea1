@@ -1,9 +1,13 @@
 import turtle
 import tkinter
-import sbfl
+import prims_final
 import time
+import ghostscript
 from PIL import Image
+import io
+import os
 
+#home = os.environ['HOME']
 window = tkinter.Tk()
 canvas = tkinter.Canvas(master = window, width = 800, height = 800)
 canvas.grid(padx=2, pady=2, row=0, column=0, rowspan=10, columnspan=10) # , sticky='nsew')
@@ -53,7 +57,7 @@ class rectMaze:
             t.goto(x, y)
     
     def create_maze(self):
-        pr = sbfl.PrimsRandomized(self.n)
+        pr = prims_final.PrimsRandomized(self.n)
         mst = pr.prims_mst()
 
         x = - (self.n / 2) * self.sideLen
@@ -108,21 +112,29 @@ class rectMaze:
             x -= self.sideLen * self.n
             y -= self.sideLen
             t.goto(x,y)
+    def save_screen(self):
+        ts = t.getscreen()
+        cv = ts.getcanvas()
+        cv.postscript(file="C:\\Users\\jodu0\\Desktop\\nea\\f.eps")
+        im = "C:\\Users\\jodu0\\Desktop\\nea\\f.eps"
+        eps_image = Image.open(im)
+        img = eps_image.convert("RGB")
+        img.save("C:\\Users\\jodu0\\Desktop\\nea\\f.jpg", lossless=True)
+    
 
 if __name__ == '__main__':
     t.pensize(2)
     t.hideturtle()
     t.speed(0)
 
-    n = 10
+    n = 5
     sideLen = 20
 
     rm = rectMaze(n, sideLen)
     # rm.create_square()
     # rm.create_grid()
     rm.create_maze()
-    canvas.postscript('x.eps', width=1000, height=1000)
-    img = Image.open('x.eps')
-    img.save('x.jph')
+    rm.save_screen()
+
 
     t.done()

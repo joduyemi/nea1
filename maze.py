@@ -5,27 +5,31 @@ import time
 import ghostscript
 from PIL import Image
 import io
+import contextlib
 import os
 import pprint
-
+import json
+import requests
 #home = os.environ['HOME']
-window = tkinter.Tk()
-canvas = tkinter.Canvas(master = window, width = 800, height = 800)
-canvas.grid(padx=2, pady=2, row=0, column=0, rowspan=10, columnspan=10) # , sticky='nsew')
-t = turtle.RawTurtle(canvas)
+#window = tkinter.Tk()
+#canvas = tkinter.Canvas(master = window, width = 800, height = 800)
+#canvas.grid(padx=2, pady=2, row=0, column=0, rowspan=10, columnspan=10) # , sticky='nsew')
+#t = turtle.RawTurtle(canvas)
 
 
 class Cell:
-    def __init__(self, x, y, walls):
+    def __init__(self, x, y, walls, id):
         self.x = x
         self.y = y
         self.walls = walls
+        self.id = id
 
     def serialise(self):
         return {
             "x": self.x,
             "y": self.y,
             "walls": self.walls,
+            "id":self.id,
         }
 
 class rectMaze:
@@ -34,6 +38,7 @@ class rectMaze:
         self.sideLen = sideLen
         self.pr = prims_final.PrimsRandomized(self.n)
 
+    '''
     def create_square(self):
         side = self.sideLen * 5
         x = - side / 2
@@ -71,9 +76,11 @@ class rectMaze:
                 t.forward(self.sideLen)
             y += self.sideLen
             t.goto(x, y)
+    '''
     
     def create_maze(self):
         self.mst = self.pr.prims_mst()
+        '''
 
         x = - (self.n / 2) * self.sideLen
         y = - x
@@ -135,19 +142,22 @@ class rectMaze:
         eps_image = Image.open(im)
         img = eps_image.convert("RGB")
         img.save("C:\\Users\\jodu0\\Desktop\\nea\\f.jpg", lossless=True)
+    '''
 
     def serialise_cells(self):
+        count = 0
         serialised_cells = []
         for i in range(self.pr.total_nodes):
             x = self.pr.position[i][0]
             y = self.pr.position[i][1]
             walls = self.mst[i]
 
-            curr_cell = Cell(x, y, walls)
+            curr_cell = Cell(x, y, walls, count)
             curr_cell.serialise()
             serialised_cells.append(curr_cell.serialise())
+            count += 1
         return serialised_cells
-    
+    '''
     def print_maze(self):
         self.mst = self.pr.prims_mst()
 
@@ -197,26 +207,35 @@ class rectMaze:
             x -= self.sideLen * self.n
             y -= self.sideLen
             t.goto(x,y)
+    '''
 
 
 
 
 
 if __name__ == '__main__':
-    n = 25
+    n = 5
     sideLen = 20
 
-    t.pensize(4)
-    t.hideturtle()
-    t.speed(0)
+    #t.pensize(2)
+    #t.hideturtle()
+    #t.speed(0)
 
 
     rm = rectMaze(n, sideLen)
     # rm.create_square()
     # rm.create_grid()
     rm.create_maze()
-    rm.save_screen()
-    pprint.pp((rm.serialise_cells()))
+    #rm.save_screen()
+    with contextlib.redirect_stdout(io.StringIO()) as f:
+        pprint.pp(rm.serialise_cells())
+    maze_data = f.getvalue()
+    data_to_send = {"maze_data": maze_data}
+    api_url = "http://localhost:5000/api/maze"
+    response = requests.post(api_url, json=data_to_send)
+    if response.status_code == 200:
+        print("Maze data successfully sent to Flask")
+    else:
+        print("Error when sending maze data to Flask")
 
 
-    t.done()
