@@ -1,5 +1,7 @@
 import math
 import maze
+import json
+import simplejson
 from flask import Flask, render_template, send_from_directory, jsonify, request
 from flask_cors import CORS
 app = Flask(__name__)
@@ -11,7 +13,7 @@ maze_data = {}
 def receive_maze_data():
     global maze_data
     data = request.json
-    maze_data = data["maze_data"]
+    maze_data = json.loads(simplejson.dumps(data, iterable_as_array=True, indent=4))
     print(maze_data)
     return jsonify({"message": "Maze data succesfully received"})
 
@@ -19,7 +21,7 @@ def receive_maze_data():
 def get_maze_data():
     global maze_data
     print(maze_data)
-    return jsonify({maze_data})
+    return jsonify({"maze_data": maze_data})
 
 @app.route("/")
 def index():

@@ -230,9 +230,11 @@ if __name__ == '__main__':
     with contextlib.redirect_stdout(io.StringIO()) as f:
         pprint.pp(rm.serialise_cells())
     maze_data = f.getvalue()
-    data_to_send = {"maze_data": maze_data}
+    print(maze_data)
+    data = json.dumps(maze_data)
+    print(data)
     api_url = "http://localhost:5000/api/maze"
-    response = requests.post(api_url, json=data_to_send)
+    response = requests.post(api_url, json=data)
     if response.status_code == 200:
         print("Maze data successfully sent to Flask")
     else:

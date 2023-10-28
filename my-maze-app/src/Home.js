@@ -19,9 +19,11 @@ const Home = () => {
                 throw new Error("Network response was not ok,")
             })
             .then((data) => {
-                const dataArray = JSON.stringify(data);
-                setMazes(dataArray);
-                console.log(dataArray);
+                const myArray = JSON.parse(JSON.parse(String(JSON.stringify(data))).maze_data);
+                const myData = myArray.replace(/'/g, '"');
+                const mazes = JSON.parse(myData);
+                setMazes(mazes);
+            
             })
             .catch((error) => console.error("Error fetching maze data: ", error))
     },[]);
