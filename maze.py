@@ -11,10 +11,10 @@ import pprint
 import json
 import requests
 #home = os.environ['HOME']
-#window = tkinter.Tk()
-#canvas = tkinter.Canvas(master = window, width = 800, height = 800)
-#canvas.grid(padx=2, pady=2, row=0, column=0, rowspan=10, columnspan=10) # , sticky='nsew')
-#t = turtle.RawTurtle(canvas)
+window = tkinter.Tk()
+canvas = tkinter.Canvas(master = window, width = 800, height = 800)
+canvas.grid(padx=2, pady=2, row=0, column=0, rowspan=10, columnspan=10) # , sticky='nsew')
+t = turtle.RawTurtle(canvas)
 
 
 class Cell:
@@ -38,7 +38,7 @@ class rectMaze:
         self.sideLen = sideLen
         self.pr = prims_final.PrimsRandomized(self.n)
 
-    '''
+    
     def create_square(self):
         side = self.sideLen * 5
         x = - side / 2
@@ -76,11 +76,11 @@ class rectMaze:
                 t.forward(self.sideLen)
             y += self.sideLen
             t.goto(x, y)
-    '''
+    
     
     def create_maze(self):
         self.mst = self.pr.prims_mst()
-        '''
+        
 
         x = - (self.n / 2) * self.sideLen
         y = - x
@@ -142,7 +142,7 @@ class rectMaze:
         eps_image = Image.open(im)
         img = eps_image.convert("RGB")
         img.save("C:\\Users\\jodu0\\Desktop\\nea\\f.jpg", lossless=True)
-    '''
+    
 
     def serialise_cells(self):
         count = 0
@@ -157,7 +157,7 @@ class rectMaze:
             serialised_cells.append(curr_cell.serialise())
             count += 1
         return serialised_cells
-    '''
+    
     def print_maze(self):
         self.mst = self.pr.prims_mst()
 
@@ -207,26 +207,26 @@ class rectMaze:
             x -= self.sideLen * self.n
             y -= self.sideLen
             t.goto(x,y)
-    '''
+    
 
 
 
 
 
 if __name__ == '__main__':
-    n = 5
+    n = 15
     sideLen = 20
 
-    #t.pensize(2)
-    #t.hideturtle()
-    #t.speed(0)
+    t.pensize(2)
+    t.hideturtle()
+    t.speed(0)
 
 
     rm = rectMaze(n, sideLen)
     # rm.create_square()
     # rm.create_grid()
     rm.create_maze()
-    #rm.save_screen()
+    rm.save_screen()
     with contextlib.redirect_stdout(io.StringIO()) as f:
         pprint.pp(rm.serialise_cells())
     maze_data = f.getvalue()

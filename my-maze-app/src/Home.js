@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import SerialisedMaze from './SerialisedMaze';
+import Canvas from './Canvas';
 
 const Home = () => {
-    const datax = [];
     const[mazes, setMazes] = useState(null);
 
     const handleDelete = (id) => {
@@ -21,16 +21,16 @@ const Home = () => {
             .then((data) => {
                 const myArray = JSON.parse(JSON.parse(String(JSON.stringify(data))).maze_data);
                 const myData = myArray.replace(/'/g, '"');
-                const mazes = JSON.parse(myData);
-                setMazes(mazes);
-            
+                const mazes2 = JSON.parse(myData);
+                setMazes(mazes2);
             })
             .catch((error) => console.error("Error fetching maze data: ", error))
     },[]);
 
     return (  
         <div className="Home">
-        {mazes && <SerialisedMaze mazes={mazes}/>}
+        {/*mazes && <SerialisedMaze mazes={mazes} handleDelete={handleDelete}/>*/};
+        {mazes && <Canvas mazes={mazes}/>}
         </div>
     );
 }
