@@ -10,6 +10,9 @@ import os
 import pprint
 import json
 import requests
+import ast
+import re
+import math
 #home = os.environ['HOME']
 class Cell:
     def __init__(self, x, y, walls, id):
@@ -213,7 +216,7 @@ class rectMaze:
 
 
 if __name__ == '__main__':
-    n = 12
+    n = 4
     sideLen = 20
 
     rm = rectMaze(n, sideLen)
@@ -226,8 +229,26 @@ if __name__ == '__main__':
     rm.save_screen()
     with contextlib.redirect_stdout(io.StringIO()) as f:
         pprint.pp(rm.serialise_cells())
+    with contextlib.redirect_stdout(io.StringIO()) as f2:
+        print(rm.serialise_cells())
     maze_data = f.getvalue()
-    print(maze_data)
+    new_maze = f2.getvalue()
+    new_maze = new_maze[1:len(new_maze)-2]
+    p = re.compile('(?<!\\\\)\'')
+    new_maze= ast.literal_eval(p.sub('\"', new_maze))
+    for i in new_maze:
+        available = [0, 0, 0, 0]
+        if new_maze["x"] != 0 and new_maze["walls"][0] == 1:
+            available[0] = 1
+        if new_maze["y"] != 0 and new_maze["walls"][1] == 0:
+            available[1] = 1
+        if new_maze["x"] != ma
+   
+
+
+
+
+
     data = json.dumps(maze_data)
     print(data)
     api_url = "http://localhost:5000/api/maze"

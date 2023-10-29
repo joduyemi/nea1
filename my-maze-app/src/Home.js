@@ -22,6 +22,7 @@ const Home = () => {
                 const myArray = JSON.parse(JSON.parse(String(JSON.stringify(data))).maze_data);
                 const myData = myArray.replace(/'/g, '"');
                 const mazes2 = JSON.parse(myData);
+                console.log(mazes2);
                 setMazes(mazes2);
             })
             .catch((error) => console.error("Error fetching maze data: ", error))
