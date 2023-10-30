@@ -35,10 +35,10 @@ class rectMaze:
         self.n = n
         self.sideLen = sideLen
         self.pr = prims_final.PrimsRandomized(self.n)
-        window = tkinter.Tk()
-        canvas = tkinter.Canvas(master = window, width = 800, height = 800)
-        canvas.grid(padx=2, pady=2, row=0, column=0, rowspan=10, columnspan=10) # , sticky='nsew')
-        self.t = turtle.RawTurtle(canvas)
+        #window = tkinter.Tk()
+        #canvas = tkinter.Canvas(master = window, width = 800, height = 800)
+        #canvas.grid(padx=2, pady=2, row=0, column=0, rowspan=10, columnspan=10) # , sticky='nsew')
+        #self.t = turtle.RawTurtle(canvas)
 
     '''
     def create_square(self):
@@ -83,7 +83,7 @@ class rectMaze:
     def create_maze(self):
         self.mst = self.pr.prims_mst()
         
-
+        '''
         x = - (self.n / 2) * self.sideLen
         y = - x
         self.t.penup()
@@ -144,6 +144,7 @@ class rectMaze:
         eps_image = Image.open(im)
         img = eps_image.convert("RGB")
         img.save("C:\\Users\\jodu0\\Desktop\\nea\\f.jpg", lossless=True)
+    '''
     
 
     def serialise_cells(self):
@@ -249,10 +250,10 @@ def dijkstra(maze, ids, start, end, new_walls):
                             neighbour = no + 1
 
                         if neighbour not in visited:
-                            print("Neigbour: "+ str(neighbour))
+                            #print("Neigbour: "+ str(neighbour))
                             tentative_distance = current[1] + 1
-                            print("Tentative distance: " + str(tentative_distance))
-                            print("Current distance: "+ str(distance[neighbour]))
+                            #print("Tentative distance: " + str(tentative_distance))
+                            #print("Current distance: "+ str(distance[neighbour]))
 
                             if tentative_distance < distance[neighbour]:
                                 distance[neighbour] = tentative_distance
@@ -277,17 +278,17 @@ def dijkstra(maze, ids, start, end, new_walls):
 
 
 if __name__ == '__main__':
-    n = 20
+    n = 16
     sideLen = 20
 
     rm = rectMaze(n, sideLen)
-    rm.t.pensize(2)
-    rm.t.hideturtle()
-    rm.t.speed(0)
-    # rm.create_square()
-    # rm.create_grid()
+    #rm.t.pensize(2)
+    #rm.t.hideturtle()
+    #rm.t.speed(0)
+    #rm.create_square()
+    #rm.create_grid()
     rm.create_maze()
-    rm.save_screen()
+    #rm.save_screen()
     with contextlib.redirect_stdout(io.StringIO()) as f:
         pprint.pp(rm.serialise_cells())
     with contextlib.redirect_stdout(io.StringIO()) as f2:
@@ -328,10 +329,10 @@ if __name__ == '__main__':
             new_walls[i][2] = 1
         if new_maze[i]["y"] != int(math.sqrt(len(new_maze))) - 1 and new_maze[i]["walls"][3] == 1:
             new_walls[i][3] = 1
-    print(new_walls)
-    print(dijkstra(new_maze, new_maze_ids, 0, end_val, new_walls))
+    #print(new_walls)
+    #print(dijkstra(new_maze, new_maze_ids, 0, end_val, new_walls))
     final_path = json.dumps(dijkstra(new_maze, new_maze_ids, 0, end_val, new_walls))
-    print(final_path)
+    #print(final_path)
     path_url = "http://localhost:5000/api/data"
     
     response = requests.post(path_url, json=final_path)

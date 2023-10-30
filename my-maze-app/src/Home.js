@@ -45,7 +45,7 @@ const Home = () => {
     return (  
         <div className="Home">
         {/*mazes && <SerialisedMaze mazes={mazes} handleDelete={handleDelete}/>*/};
-        {mazes && <Canvas mazes={mazes} path={path}/>}
+        {mazes && path && <Canvas mazes={mazes} path={path}/>}
         </div>
     );
 }

@@ -1,38 +1,48 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 
 const Canvas = ({mazes, path}) => {
     const canvasRef = useRef(null);
     path.push(0);
+    const [mazeDrawn, setMazeDrawn] = useState(false);
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) {
             console.error("Canvas element is not available.");
             return;
         }
+        const values = Object.values(mazes);
+        const row_len = parseInt(Math.sqrt(values.length))
+        const sorted = path.slice().sort((a, b) => {
+            const columnA = a % row_len;
+            const columnB = b % row_len;
+
+            if (columnA !== columnB) {
+                return columnA - columnB;
+            }
+
+            return a - b;
+        })
 
         const ctx = canvas.getContext("2d");
         const delay = 50;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         const cellSize = 45;
         const middle = cellSize / 2;
 
         const drawMaze = (values, index = 0) => {
-            if (index >= values.length) return;
+            if (index >= values.length) {
+                setMazeDrawn(true);
+                drawPath(values, sorted);
+                return;
+            }
                 const value = values[index];
-                ctx.fillStyle = "blue";
                 const x = value.x;
                 const y = value.y;
                 let walls = value.walls;
                 const left = y * cellSize;
                 const top = x * cellSize;
-                const midtop = top + middle;
-                const midleft = left + middle;
 
-                if (path.includes(index)) {
-                    ctx.fillRect(midleft, midtop, 3, 3);
-                }
                 ctx.fillStyle = "black";
 
                 if (walls[0] === 0) {
@@ -53,15 +63,47 @@ const Canvas = ({mazes, path}) => {
 
                 setTimeout(() => {
                     drawMaze(values, index + 1);
+                }, 10);
+        };
+
+        const drawPath = (values, sortedPath) => {
+            if (!mazeDrawn) {
+                setTimeout(() => {
+                    drawPath(values, sortedPath);
                 }, delay);
+                return;
+            }
+            let currentIndex = 0;
+            
+            const drawNextCell = () => {
+                if (currentIndex >= sortedPath.length) return;
+                const cellIndex = sortedPath[currentIndex];
+                const value = values[cellIndex];
+                ctx.fillStyle = "blue";
+                const x = value.x;
+                const y = value.y;
+                const left = y * cellSize;
+                const top = x * cellSize;
+                const midtop = top + middle;
+                const midleft = left + middle;
+                ctx.fillRect(midleft, midtop, 3, 3);
+
+                currentIndex++;
+
+                setTimeout(drawNextCell, delay);
+
+        }
+
+        drawNextCell();
         };
 
         if (mazes) {
-            const values = Object.values(mazes);
             drawMaze(values);
+            drawPath(values, sorted);
         }
 
-    }, [mazes]);
+
+    }, [mazes, mazeDrawn]);
 
 
     return <canvas ref={canvasRef} width={2000} height={2000}></canvas>
