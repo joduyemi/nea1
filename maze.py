@@ -222,21 +222,21 @@ def dijkstra(maze, ids, start, end, new_walls):
     distance[start] = 0
     priority_queue.put((start, 0))
     while not priority_queue.empty():
-        print("Count: " + str(count))
+        #print("Count: " + str(count))
         count += 1
-        print(priority_queue.queue)
-        print(distance)
+        #print(priority_queue.queue)
+        #print(distance)
         current = priority_queue.get()
-        print(current)
+        #print(current)
         if current[0] == end:
             break
         no = 0
         for i in range(len(maze)):
             if maze[i]["id"] == current[0]:
                 no = i
-                print(no)
+                #print(no)
                 visited.append(no)
-                print(visited)
+                #print(visited)
                 for j in range(4):
                     if new_walls[no][j] == 1:
                         if j == 0:
@@ -330,3 +330,13 @@ if __name__ == '__main__':
             new_walls[i][3] = 1
     print(new_walls)
     print(dijkstra(new_maze, new_maze_ids, 0, end_val, new_walls))
+    final_path = json.dumps(dijkstra(new_maze, new_maze_ids, 0, end_val, new_walls))
+    print(final_path)
+    path_url = "http://localhost:5000/api/data"
+    
+    response = requests.post(path_url, json=final_path)
+    if response.status_code == 200:
+        print("Path data successfully sent to Flask")
+    else:
+        print("Error when sending maze data to Flask2")
+    

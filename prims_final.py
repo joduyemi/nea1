@@ -68,7 +68,7 @@ class PrimsRandomized:
             to_visit.remove(next_node)
 
         self.find_pos()
-        print(self.position)
+        #print(self.position)
 
         return mst
 

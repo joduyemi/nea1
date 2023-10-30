@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 
 
-const Canvas = ({mazes}) => {
+const Canvas = ({mazes, path}) => {
     const canvasRef = useRef(null);
-
+    path.push(0);
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) {
@@ -21,7 +21,7 @@ const Canvas = ({mazes}) => {
         const drawMaze = (values, index = 0) => {
             if (index >= values.length) return;
                 const value = values[index];
-                ctx.fillStyle = "black";
+                ctx.fillStyle = "blue";
                 const x = value.x;
                 const y = value.y;
                 let walls = value.walls;
@@ -30,7 +30,10 @@ const Canvas = ({mazes}) => {
                 const midtop = top + middle;
                 const midleft = left + middle;
 
-                ctx.fillRect(midleft, midtop, 3, 3);
+                if (path.includes(index)) {
+                    ctx.fillRect(midleft, midtop, 3, 3);
+                }
+                ctx.fillStyle = "black";
 
                 if (walls[0] === 0) {
                     ctx.fillRect(left, top, cellSize, 1);

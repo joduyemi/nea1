@@ -4,6 +4,7 @@ import Canvas from './Canvas';
 
 const Home = () => {
     const[mazes, setMazes] = useState(null);
+    const[path, setPath] = useState(null);
 
     const handleDelete = (id) => {
         const newMazes = mazes.filter((maze) => maze.id !== id);
@@ -16,7 +17,7 @@ const Home = () => {
                 if (response.ok) {
                     return response.json();
                 }
-                throw new Error("Network response was not ok,")
+                throw new Error("Network response was not ok");
             })
             .then((data) => {
                 const myArray = JSON.parse(JSON.parse(String(JSON.stringify(data))).maze_data);
@@ -26,12 +27,25 @@ const Home = () => {
                 setMazes(mazes2);
             })
             .catch((error) => console.error("Error fetching maze data: ", error))
+
+        fetch("/api/data")
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok");
+            })
+            .then((result) => {
+                const paths = JSON.parse(JSON.parse(result.data));
+                setPath(paths);
+            })
+            .catch((error) => console.error("Error fetching maze data: ", error))
     },[]);
 
     return (  
         <div className="Home">
         {/*mazes && <SerialisedMaze mazes={mazes} handleDelete={handleDelete}/>*/};
-        {mazes && <Canvas mazes={mazes}/>}
+        {mazes && <Canvas mazes={mazes} path={path}/>}
         </div>
     );
 }
