@@ -277,7 +277,7 @@ def dijkstra(maze, ids, start, end, new_walls):
 
 
 if __name__ == '__main__':
-    n = 5
+    n = 20
     sideLen = 20
 
     rm = rectMaze(n, sideLen)
