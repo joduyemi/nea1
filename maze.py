@@ -212,16 +212,20 @@ class rectMaze:
     '''
     
 
-def dijkstra(maze, ids, start, end):
+def dijkstra(maze, ids, start, end, new_walls):
     priority_queue = queue.PriorityQueue()
     distance = {cell:float('inf') for cell in ids}
     parent = {}
     row_len = int(math.sqrt(len(ids)))
     visited = []
-
+    count = 0
     distance[start] = 0
     priority_queue.put((start, 0))
     while not priority_queue.empty():
+        print("Count: " + str(count))
+        count += 1
+        print(priority_queue.queue)
+        print(distance)
         current = priority_queue.get()
         print(current)
         if current[0] == end:
@@ -234,7 +238,7 @@ def dijkstra(maze, ids, start, end):
                 visited.append(no)
                 print(visited)
                 for j in range(4):
-                    if maze[no]["walls"][j] == 1:
+                    if new_walls[no][j] == 1:
                         if j == 0:
                             neighbour = no - row_len
                         elif j == 1:
@@ -245,7 +249,11 @@ def dijkstra(maze, ids, start, end):
                             neighbour = no + 1
 
                         if neighbour not in visited:
-                            tentative_distance = distance[current[1]] + 1
+                            print("Neigbour: "+ str(neighbour))
+                            tentative_distance = current[1] + 1
+                            print("Tentative distance: " + str(tentative_distance))
+                            print("Current distance: "+ str(distance[neighbour]))
+
                             if tentative_distance < distance[neighbour]:
                                 distance[neighbour] = tentative_distance
                                 parent[neighbour] = current[0]
@@ -254,9 +262,7 @@ def dijkstra(maze, ids, start, end):
                             continue
                         
                     
-    
     if end not in parent.keys():
-        print(parent.keys())
         return None
     
     path = []
@@ -271,7 +277,7 @@ def dijkstra(maze, ids, start, end):
 
 
 if __name__ == '__main__':
-    n = 8
+    n = 5
     sideLen = 20
 
     rm = rectMaze(n, sideLen)
@@ -310,16 +316,17 @@ if __name__ == '__main__':
     for i in range(int(math.sqrt(len(new_maze)))):
         for j in range(int(math.sqrt(len(new_maze)))):
             new.append([0, 0, 0, 0])
-
+    
+    end_val = n**2 - 1
 
     for i in range(len(new_maze)):
         if new_maze[i]["x"] != 0 and new_maze[i]["walls"][0] == 1:
-            new[i][0] = 1
+            new_walls[i][0] = 1
         if new_maze[i]["y"] != 0 and new_maze[i]["walls"][1] == 1:
-            new[i][1] = 1
+            new_walls[i][1] = 1
         if new_maze[i]["x"] != int(math.sqrt(len(new_maze))) - 1 and new_maze[i]["walls"][2] == 1:
-            new[i][2] = 1
+            new_walls[i][2] = 1
         if new_maze[i]["y"] != int(math.sqrt(len(new_maze))) - 1 and new_maze[i]["walls"][3] == 1:
-            new[i][3] = 1
+            new_walls[i][3] = 1
     print(new_walls)
-    print(dijkstra(new_maze, new_maze_ids, new_maze[0]["id"], new_maze[15]["id"]))
+    print(dijkstra(new_maze, new_maze_ids, 0, end_val, new_walls))
