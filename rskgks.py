@@ -2,8 +2,8 @@ import turtle
 import tkinter
 import prims_final
 import time
-import ghostscript
-from PIL import Image
+#import ghostscript
+#from PIL import Image
 import io
 import os
 import pprint

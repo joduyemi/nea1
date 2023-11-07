@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const Canvas = ({mazes, path}) => {
     const canvasRef = useRef(null);
-    path.push(0);
     const [mazeDrawn, setMazeDrawn] = useState(false);
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -12,28 +11,19 @@ const Canvas = ({mazes, path}) => {
             return;
         }
         const values = Object.values(mazes);
-        const row_len = parseInt(Math.sqrt(values.length))
-        const sorted = path.slice().sort((a, b) => {
-            const columnA = a % row_len;
-            const columnB = b % row_len;
-
-            if (columnA !== columnB) {
-                return columnA - columnB;
-            }
-
-            return a - b;
-        })
+        console.log(values);
+        console.log(path);
 
         const ctx = canvas.getContext("2d");
-        const delay = 50;
+        const delay = 100;
 
-        const cellSize = 45;
+        const cellSize = 25;
         const middle = cellSize / 2;
 
         const drawMaze = (values, index = 0) => {
             if (index >= values.length) {
                 setMazeDrawn(true);
-                drawPath(values, sorted);
+                drawPath(values, path);
                 return;
             }
                 const value = values[index];
@@ -49,7 +39,7 @@ const Canvas = ({mazes, path}) => {
                     ctx.fillRect(left, top, cellSize, 1);
                 }
 
-                if ((value.id != 0) && walls[1] === 0) {
+                if ((value.id !== 0) && walls[1] === 0) {
                     ctx.fillRect(left, top, 1, cellSize);
                 }
 
@@ -57,13 +47,13 @@ const Canvas = ({mazes, path}) => {
                     ctx.fillRect(left, top + cellSize - 1, cellSize, 1);
                 }
 
-                if ((value.id != Object.keys(mazes).length - 1) && walls[3] === 0) {
+                if ((value.id !== Object.keys(mazes).length - 1) && walls[3] === 0) {
                     ctx.fillRect(left + cellSize - 1, top, 1, cellSize);
                 }
 
                 setTimeout(() => {
                     drawMaze(values, index + 1);
-                }, 10);
+                }, 1);
         };
 
         const drawPath = (values, sortedPath) => {
@@ -99,11 +89,10 @@ const Canvas = ({mazes, path}) => {
 
         if (mazes) {
             drawMaze(values);
-            drawPath(values, sorted);
+            drawPath(values, path);
         }
 
-
-    }, [mazes, mazeDrawn]);
+    }, [mazes, mazeDrawn, path]);
 
 
     return <canvas ref={canvasRef} width={2000} height={2000}></canvas>

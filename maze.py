@@ -2,8 +2,8 @@ import turtle
 import tkinter
 import prims_final
 import time
-import ghostscript
-from PIL import Image
+#import ghostscript
+#from PIL import Image
 import io
 import contextlib
 import os
@@ -278,8 +278,8 @@ def dijkstra(maze, ids, start, end, new_walls):
 
 
 if __name__ == '__main__':
-    n = 16
-    sideLen = 20
+    n = 40
+    sideLen = 30
 
     rm = rectMaze(n, sideLen)
     #rm.t.pensize(2)

@@ -15,13 +15,11 @@ def receive_maze_data():
     global maze_data
     data = request.json
     maze_data = json.loads(simplejson.dumps(data, iterable_as_array=True, indent=4))
-    print(maze_data)
     return jsonify({"message": "Maze data successfully received"})
 
 @app.route("/api/maze", methods=["GET"])
 def get_maze_data():
     global maze_data
-    print(maze_data)
     return jsonify({"maze_data": maze_data})
 
 @app.route("/api/data", methods=["POST"])
@@ -29,7 +27,6 @@ def receive_path():
     global path_data
     path_data = request.json
     path_data = json.dumps(path_data)
-    print(path_data)
     return jsonify({"message": "Path data successfully received"})
 
 @app.route("/api/data", methods=["GET"])

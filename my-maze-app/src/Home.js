@@ -37,6 +37,7 @@ const Home = () => {
             })
             .then((result) => {
                 const paths = JSON.parse(JSON.parse(result.data));
+                paths.unshift(0);
                 setPath(paths);
             })
             .catch((error) => console.error("Error fetching maze data: ", error))
