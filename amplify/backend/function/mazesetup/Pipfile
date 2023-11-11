@@ -9,6 +9,8 @@ verify_ssl = true
 src = {editable = true, path = "./src"}
 flask = "*"
 flask-cors = "*"
+requests = "*"
+simplejson = "*"
 
 [requires]
 python_version = "3.12"

@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-flaskmazeapp-dev-184753-authRole",
+      "UnauthRoleArn": "arn:aws:iam::389174351977:role/amplify-flaskmazeapp-dev-184753-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::389174351977:role/amplify-flaskmazeapp-dev-184753-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-flaskmazeapp-dev-184753-deployment",
+      "UnauthRoleName": "amplify-flaskmazeapp-dev-184753-unauthRole",
+      "StackName": "amplify-flaskmazeapp-dev-184753",
+      "StackId": "arn:aws:cloudformation:eu-west-2:389174351977:stack/amplify-flaskmazeapp-dev-184753/cf6aae70-80c2-11ee-a299-06af837bbdde",
+      "AmplifyAppId": "d36ad70uolppv4"
+    },
+    "categories": {
+      "function": {
+        "mazesetup": {
+          "deploymentBucketName": "amplify-flaskmazeapp-dev-184753-deployment",
+          "s3Key": "amplify-builds/mazesetup-44504f6e6261376d564c-build.zip"
+        }
+      }
+    }
+  }
+}

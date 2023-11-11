@@ -1,0 +1,27 @@
+{
+  "function": {
+    "mazesetup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_mazesetup_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mazesetup"
+        }
+      ]
+    },
+    "AMPLIFY_function_mazesetup_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mazesetup"
+        }
+      ]
+    }
+  }
+}

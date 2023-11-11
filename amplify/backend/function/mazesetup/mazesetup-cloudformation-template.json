@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "myflaskfunction",
+            "mazesetup",
             {
               "Fn::Join": [
                 "",
                 [
-                  "myflaskfunction",
+                  "mazesetup",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mymazeappLambdaRole381c48c3",
+            "flaskmazeappLambdaRole150adcaf",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mymazeappLambdaRole381c48c3",
+                  "flaskmazeappLambdaRole150adcaf",
                   "-",
                   {
                     "Ref": "env"
