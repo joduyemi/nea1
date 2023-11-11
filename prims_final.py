@@ -50,7 +50,9 @@ class PrimsRandomized:
             # for all the nodes in visited, pick one of the outgoing edge
             # at random, connecting to a new node that is not already in visited.
 
-            edges_pool = self.edges_to_unvisited_nodes(visited)
+            edges_pool = list(set(self.edges_to_unvisited_nodes(visited)))
+            for i in range(10):
+                random.shuffle(edges_pool)
             # pick a random edge
             edge = random.choice(edges_pool)
             node, next_node = edge

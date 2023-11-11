@@ -10,29 +10,27 @@ cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 maze_data = {}
 path_data = []
 
-@app.route("/api/maze", methods=["POST"])
-def receive_maze_data():
+
+@app.route("/api/maze", methods=["POST", "GET"])
+def maze_data_handler():
     global maze_data
-    data = request.json
-    maze_data = json.loads(simplejson.dumps(data, iterable_as_array=True, indent=4))
-    return jsonify({"message": "Maze data successfully received"})
+    if request.method == "POST":
+        data = request.json
+        maze_data = json.loads(json.dumps(data, indent=4))
+        return jsonify({"message": "Maze data successfully received"})
+    elif request.method == "GET":
+        return jsonify({"maze_data": maze_data})
 
-@app.route("/api/maze", methods=["GET"])
-def get_maze_data():
-    global maze_data
-    return jsonify({"maze_data": maze_data})
 
-@app.route("/api/data", methods=["POST"])
-def receive_path():
+@app.route("/api/data", methods=["POST", "GET"])
+def path_data_handler():
     global path_data
-    path_data = request.json
-    path_data = json.dumps(path_data)
-    return jsonify({"message": "Path data successfully received"})
-
-@app.route("/api/data", methods=["GET"])
-def send_path():
-    global path_data
-    return jsonify(data=path_data)
+    if request.method == "POST":
+        path_data = request.json
+        path_data = json.dumps(path_data)
+        return jsonify({"message": "Path data successfully received"})
+    elif request.method == "GET":
+        return jsonify(data=path_data)
 
 @app.route("/")
 def index():
