@@ -1,0 +1,43 @@
+{
+  "api": {
+    "myflaskapi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "myflaskfunction"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "myflaskfunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_myflaskfunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "myflaskfunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_myflaskfunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "myflaskfunction"
+        }
+      ]
+    }
+  }
+}
