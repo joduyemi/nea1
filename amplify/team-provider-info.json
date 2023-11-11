@@ -17,6 +17,12 @@
           "deploymentBucketName": "amplify-flaskmazeapp-dev-184753-deployment",
           "s3Key": "amplify-builds/mazesetup-44504f6e6261376d564c-build.zip"
         }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d36ad70uolppv4",
+          "type": "cicd"
+        }
       }
     }
   }
