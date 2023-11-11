@@ -15,11 +15,17 @@
       "function": {
         "myflaskfunction": {
           "deploymentBucketName": "amplify-mymazeapp-dev-141217-deployment",
-          "s3Key": "amplify-builds/myflaskfunction-71756554364b696c6a30-build.zip"
+          "s3Key": "amplify-builds/myflaskfunction-6d533871717675563856-build.zip"
         }
       },
       "api": {
         "myflaskapi": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2c7lc26fdo9q6",
+          "type": "cicd"
+        }
       }
     }
   }
