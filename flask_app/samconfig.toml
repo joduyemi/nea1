@@ -1,0 +1,6 @@
+version = 0.1
+
+[default]
+region = "eu-west-2"
+s3_bucket = "findyourpath"
+

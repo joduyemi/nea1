@@ -12,7 +12,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        fetch("/api/maze")
+        fetch("https://8fs6lykh95.execute-api.eu-west-2.amazonaws.com/Prod/api/maze")
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -28,7 +28,7 @@ const Home = () => {
             })
             .catch((error) => console.error("Error fetching maze data: ", error))
 
-        fetch("/api/data")
+        fetch("https://8fs6lykh95.execute-api.eu-west-2.amazonaws.com/Prod/api/data")
             .then((response) => {
                 if (response.ok) {
                     return response.json();

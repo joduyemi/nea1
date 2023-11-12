@@ -1,0 +1,36 @@
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is 3405-8633
+
+ Directory of C:\Users\jodu0\Desktop\nea
+
+11/11/2023  20:20    <DIR>          .
+10/11/2023  22:36    <DIR>          ..
+26/10/2023  15:57               105 .funcignore
+11/11/2023  18:48             2,320 .gitignore
+26/10/2023  17:28    <DIR>          .idea
+30/10/2023  00:14    <DIR>          .venv
+26/10/2023  13:28    <DIR>          .vscode
+11/11/2023  20:20                 0 1.txt
+10/11/2023  20:04             1,347 app.py
+10/11/2023  20:30             2,246 dijkstra.py
+30/10/2023  14:02            54,950 f.eps
+30/10/2023  14:02            21,642 f.jpg
+11/11/2023  20:15         4,327,671 filename.txt
+26/10/2023  15:57               288 host.json
+26/10/2023  18:29             3,623 kfkshkjz.py
+26/10/2023  15:58               301 local.settings.json
+10/11/2023  22:35               297 main_script.py
+10/11/2023  20:13             6,087 maze.py
+11/11/2023  18:40    <DIR>          my-maze-app
+10/11/2023  22:22             4,763 prims_final.py
+26/10/2023  15:57               200 requirements.txt
+07/11/2023  19:41             1,565 rskgks.py
+26/10/2023  18:28             4,299 sbfl.py
+10/11/2023  22:38             2,569 solver.py
+11/11/2023  20:07    <DIR>          src
+19/09/2023  20:54             1,431 start.py
+27/10/2023  13:56    <DIR>          static
+27/10/2023  14:04    <DIR>          templates
+10/11/2023  22:22    <DIR>          __pycache__
+              19 File(s)      4,435,704 bytes
+              10 Dir(s)  392,954,568,704 bytes free

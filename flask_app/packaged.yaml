@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Flask App on AWS Lambda
+Resources:
+  FlaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app2.maze2.solver.lambda_handler
+      Runtime: python3.8
+      CodeUri: s3://findyourpath/fc19385e252aa41fad3ba7ad2bc047bd
+      MemorySize: 256
+      Timeout: 30
+      Events:
+        FlaskApi:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+    Metadata:
+      SamResourceId: FlaskFunction
